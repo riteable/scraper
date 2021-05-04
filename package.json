@@ -1,0 +1,25 @@
+{
+  "name": "@riteable/scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scraper",
+    "crawler",
+    "puppeteer"
+  ],
+  "author": "Riteable",
+  "license": "CC0",
+  "dependencies": {
+    "@riteable/q-worker": "^1.0.7",
+    "cheerio": "*",
+    "consola": "^2.15.3",
+    "needle": "^2.6.0"
+  },
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}
