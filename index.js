@@ -3,7 +3,7 @@ const cheerio = require('cheerio')
 const worker = require('@riteable/q-worker')
 const helpers = require('./helpers')
 
-class Scrapi {
+class Scraper {
   constructor () {
     this._dataMap = this.helpers
   }
@@ -119,4 +119,4 @@ class Scrapi {
   }
 }
 
-module.exports = Scrapi
+module.exports = Scraper
