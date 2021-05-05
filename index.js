@@ -1,7 +1,10 @@
+const debug = require('debug')
 const needle = require('needle')
 const cheerio = require('cheerio')
 const worker = require('@riteable/q-worker')
 const helpers = require('./helpers')
+
+const d = debug('riteable:scraper')
 
 class Scraper {
   constructor () {
@@ -16,10 +19,16 @@ class Scraper {
     let res
 
     if (this._q) {
+      d('Queueing request: %s', url)
+
       res = await this._q.add(() => needle('get', url))
     } else {
+      d('Making request: %s', url)
+
       res = await needle('get', url)
     }
+
+    d('Completed request: %s', url)
 
     const $ = cheerio.load(res.body || '')
 
@@ -30,6 +39,8 @@ class Scraper {
     const data = {}
 
     for (const field in this._dataMap) {
+      d('Mapping data: %s', field)
+
       data[field] = await this._dataMap[field](res)
     }
 
@@ -55,6 +66,8 @@ class Scraper {
   }
 
   async _scrapePages (urls) {
+    d('Scraping %d pages', urls.length)
+
     const data = await Promise.all(urls.map(async (url) => {
       url = this._normalizeLinkUrl(url)
 
@@ -69,13 +82,13 @@ class Scraper {
   }
 
   async _getIndexResponse () {
-    if (!this._indexResponse) {
-      if (!this._indexUrl) {
-        throw new Error('Index URL not set.')
-      }
-
-      this._indexResponse = await this._request(this._indexUrl)
+    if (!this._indexUrl) {
+      throw new Error('Index URL not set.')
     }
+
+    d('Fetching index: %s', this._indexUrl)
+
+    this._indexResponse = await this._request(this._indexUrl)
 
     return this._indexResponse
   }

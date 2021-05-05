@@ -9,14 +9,14 @@
   "keywords": [
     "scraper",
     "crawler",
-    "puppeteer"
+    "cheerio"
   ],
   "author": "Riteable",
-  "license": "CC0",
+  "license": "ISC",
   "dependencies": {
     "@riteable/q-worker": "^1.0.7",
     "cheerio": "*",
-    "consola": "^2.15.3",
+    "debug": "^3.2.7",
     "needle": "^2.6.0"
   },
   "devDependencies": {
